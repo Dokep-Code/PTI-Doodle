@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dran7ic7i4odi"]
+
+[ext_resource type="Script" uid="uid://r4f4xdltm8ei" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
+
+[node name="Main" type="Node2D" unique_id=1748254535]
+script = ExtResource("1_0u8ko")
+line_color = Color(0.8014965, 0.7277591, 0.98076767, 1)
+
+[node name="DoodleContainer" type="Node2D" parent="." unique_id=1665794916]
