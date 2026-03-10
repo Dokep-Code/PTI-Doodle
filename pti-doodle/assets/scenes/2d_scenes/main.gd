@@ -15,7 +15,8 @@ func _input(event: InputEvent) -> void:
 		else:
 			is_drawing = false
 
-	if Input.is_action_just_released("undo"): undo()
+	if Input.is_action_just_released("undo"): 
+		undo()
 
 var current_line: Line2D
 

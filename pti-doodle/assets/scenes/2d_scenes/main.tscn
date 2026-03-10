@@ -2,8 +2,47 @@
 
 [ext_resource type="Script" uid="uid://r4f4xdltm8ei" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0u8ko"]
+bg_color = Color(0.7413847, 0.7413847, 0.7413844, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [node name="Main" type="Node2D" unique_id=1748254535]
 script = ExtResource("1_0u8ko")
 line_color = Color(0.8014965, 0.7277591, 0.98076767, 1)
 
 [node name="DoodleContainer" type="Node2D" parent="." unique_id=1665794916]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1754097666]
+
+[node name="BrushSettings" type="HBoxContainer" parent="CanvasLayer" unique_id=1916744067]
+z_as_relative = false
+custom_minimum_size = Vector2(1260, 0)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -630.0
+offset_top = 13.0
+offset_right = 630.0
+offset_bottom = 107.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer/BrushSettings" unique_id=671277741]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_0u8ko")
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=1743077951]
+layer = -1
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Background" unique_id=65508656]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
