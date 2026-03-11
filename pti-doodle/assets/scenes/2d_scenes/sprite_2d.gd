@@ -27,15 +27,13 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			if event.is_pressed():
-				Global.brush_eraser_mode = false
-				_begin_stroke()
+				_begin_stroke(false)
 			else:
 				_end_stroke()
 
 		elif event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.is_pressed():
-				Global.brush_eraser_mode = true
-				_begin_stroke()
+				_begin_stroke(true)
 			else:
 				_end_stroke()
 
@@ -49,9 +47,9 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_released("send"):
 		send_to_ai()
 
-func _begin_stroke() -> void:
+func _begin_stroke(eraser: bool) -> void:
 	is_drawing = true
-	is_erasing = Global.brush_eraser_mode
+	is_erasing = eraser
 	has_last_point = false
 
 	# Save snapshot for undo

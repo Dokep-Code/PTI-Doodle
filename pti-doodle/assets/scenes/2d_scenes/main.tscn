@@ -1,44 +1,144 @@
 [gd_scene format=3 uid="uid://dran7ic7i4odi"]
 
-[ext_resource type="Script" uid="uid://r4f4xdltm8ei" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
+[ext_resource type="Script" uid="uid://c7omn8ud22fqo" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
+[ext_resource type="Script" uid="uid://lw3843oxnyuv" path="res://assets/scripts/toolbar.gd" id="2_bt2r4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0u8ko"]
-bg_color = Color(0.7413847, 0.7413847, 0.7413844, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[sub_resource type="GDScript" id="GDScript_bt2r4"]
+script/source = "extends Button
+
+@onready var color_rect: ColorRect = $ColorRect
+
+func _ready() -> void:
+	self.button_up.connect(func():
+		Global.brush_color = color_rect.color
+	)
+"
 
 [node name="Main" type="Node2D" unique_id=1748254535]
 script = ExtResource("1_0u8ko")
-line_color = Color(0.8014965, 0.7277591, 0.98076767, 1)
 
-[node name="DoodleContainer" type="Node2D" parent="." unique_id=1665794916]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=539164007]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1754097666]
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1977927783]
 
-[node name="BrushSettings" type="HBoxContainer" parent="CanvasLayer" unique_id=1916744067]
-z_as_relative = false
-custom_minimum_size = Vector2(1260, 0)
+[node name="Toolbar" type="CanvasLayer" parent="." unique_id=1754097666]
+script = ExtResource("2_bt2r4")
+
+[node name="Control" type="Control" parent="Toolbar" unique_id=1561272673]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="Toolbar/Control" unique_id=1931734724]
+layout_mode = 0
+offset_right = 76.0
+offset_bottom = 196.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Control/Panel" unique_id=1976082167]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -88.0
+offset_right = 32.0
+offset_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1624150736]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button" unique_id=1614803386]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button2" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=330179327]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button2" unique_id=1537203137]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Button3" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1603683795]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button3" unique_id=379477522]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.784382, 0.21340358, 0.26264974, 1)
+
+[node name="Button4" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1854809317]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button4" unique_id=1320914502]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.115324534, 0.21886483, 0.99981886, 1)
+
+[node name="Button5" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=994783301]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button5" unique_id=1677625170]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1.92523e-07, 0.86389977, 0.36664948, 1)
+
+[node name="AiGuess" type="Label" parent="Toolbar" unique_id=1215243193]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -630.0
-offset_top = 13.0
-offset_right = 630.0
-offset_bottom = 107.0
+offset_left = -263.0
+offset_right = 263.0
+offset_bottom = 88.0
 grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Panel" type="Panel" parent="CanvasLayer/BrushSettings" unique_id=671277741]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_0u8ko")
+theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
+theme_override_font_sizes/font_size = 58
+text = "Draw something!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1743077951]
 layer = -1
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Background" unique_id=65508656]
 anchors_preset = 15
@@ -46,3 +146,4 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.92, 0.92, 0.92, 1)
