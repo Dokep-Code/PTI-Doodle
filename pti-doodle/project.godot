@@ -24,6 +24,7 @@ DoodleAi="*uid://b6m46ag6cdirq"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [file_customization]
 
@@ -58,3 +59,4 @@ send={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
+anti_aliasing/stretch/mode="disabled"

@@ -14,6 +14,98 @@ func _ready() -> void:
 	)
 "
 
+[sub_resource type="Animation" id="Animation_bt2r4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [58]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(377, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wfs30"]
+resource_name = "fast_response"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.96666664, 2.1333334, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [64, 72, 56, 64]
+}
+
+[sub_resource type="Animation" id="Animation_llxd6"]
+resource_name = "fast_response"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.56666666, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.06981317, 0.0, -0.06981317, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.99, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(377, 0), Vector2(377, 16), Vector2(377, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_llxd6"]
+_data = {
+&"RESET": SubResource("Animation_bt2r4"),
+&"deep_response": SubResource("Animation_wfs30"),
+&"fast_response": SubResource("Animation_llxd6")
+}
+
 [node name="Main" type="Node2D" unique_id=1748254535]
 script = ExtResource("1_0u8ko")
 
@@ -131,11 +223,16 @@ offset_left = -263.0
 offset_right = 263.0
 offset_bottom = 88.0
 grow_horizontal = 2
+pivot_offset = Vector2(1, 1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
 theme_override_font_sizes/font_size = 58
 text = "Draw something!"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Toolbar/AiGuess" unique_id=820520310]
+libraries/ = SubResource("AnimationLibrary_llxd6")
 
 [node name="Background" type="CanvasLayer" parent="." unique_id=1743077951]
 layer = -1

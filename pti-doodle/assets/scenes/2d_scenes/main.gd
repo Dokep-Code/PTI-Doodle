@@ -3,7 +3,7 @@ extends Node2D
 @export var line_width: float = 10.0
 @export var line_color: Color = Color.RED
 @export var eraser_width: float = 20.0
-@export var canvas_size: Vector2i = Vector2i(1152, 648)
+@export var canvas_size: Vector2i = Vector2i(1280, 720)
 
 var is_drawing: bool = false
 var is_erasing: bool = false
@@ -13,6 +13,9 @@ var last_point: Vector2
 var has_last_point: bool = false
 var undo_stack: Array[Image] = []
 var stroke_snapshot: Image
+
+var last_stroke_time: float = 0.0
+const STROKE_COOLDOWN: float = 0.2
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -42,6 +45,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and is_drawing:
 		var pos := _get_canvas_pos(event.position)
 		_draw_segment(pos)
+		
+		
 
 	if Input.is_action_just_released("undo"):
 		undo()
@@ -50,6 +55,11 @@ func _input(event: InputEvent) -> void:
 		send_to_ai()
 
 func _begin_stroke() -> void:
+	var now := Time.get_ticks_msec() / 1000.0
+	if now - last_stroke_time < STROKE_COOLDOWN:
+		return
+	last_stroke_time = now
+	
 	is_drawing = true
 	is_erasing = Global.brush_eraser_mode
 	has_last_point = false
