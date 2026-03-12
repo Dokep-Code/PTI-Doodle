@@ -111,8 +111,6 @@ script = ExtResource("1_0u8ko")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=539164007]
 
-[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1977927783]
-
 [node name="Toolbar" type="CanvasLayer" parent="." unique_id=1754097666]
 script = ExtResource("2_bt2r4")
 
