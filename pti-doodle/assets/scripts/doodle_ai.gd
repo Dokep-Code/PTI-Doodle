@@ -1,11 +1,16 @@
 extends Node
 
-const SYSTEM_PROMPT := "You are a doodle recognition engine. The user will send you a hand-drawn doodle image.
-Identify the single object, animal, symbol, or concept depicted.
-Respond with only its name in Polish — one or two words maximum, lowercase, no punctuation or explanation.
-Examples: kot, pendrive, dom, sygnalizacja, znak stop."
+const SYSTEM_PROMPT := "You are a doodle recognition engine for a drawing game with an IT/technology theme.
+The user will send you a hand-drawn doodle. Identify the single object depicted.
+If the doodle clearly resembles a computer, technology, or electronics object — prefer that interpretation.
+If it does not clearly match any IT object, identify it as whatever it most looks like (e.g. a shape, animal, everyday object).
+Do not force an IT interpretation when the drawing is ambiguous or generic.
+Respond with only the object name in Polish — one or two words maximum, lowercase, no punctuation or explanation.
+IT examples: monitor, pendrive, klawiatura, router, dyskietka, wifi, procesor.
+General examples: koło, kot, dom, drzewo, słońce, kwiat."
 
 signal response_received(reply: String, is_deep: bool)
+signal certainty_changed(color: Color)
 
 var current_request_type: String = ""
 var deep_timer: SceneTreeTimer
@@ -13,6 +18,7 @@ var fast_timer: SceneTreeTimer
 var http_request: HTTPRequest
 var is_awaiting_fast_response: bool = false
 var is_awaiting_deep_response: bool = false
+var certainty: Color 
 
 func _ready() -> void:
 	http_request = HTTPRequest.new()
@@ -100,8 +106,10 @@ func _on_request_completed(
 
 	if is_deep:
 		is_awaiting_deep_response = false
+		certainty_changed.emit(Color("92d15a"))
 	else:
 		is_awaiting_fast_response = false
+		certainty_changed.emit(Color("d94c4c"))
 
 	var body_str := body.get_string_from_utf8()
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dran7ic7i4odi"]
 
 [ext_resource type="Script" uid="uid://c7omn8ud22fqo" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
-[ext_resource type="Script" uid="uid://lw3843oxnyuv" path="res://assets/scripts/toolbar.gd" id="2_bt2r4"]
+[ext_resource type="Theme" uid="uid://cymxflgwd3kp5" path="res://assets/resources/main_theme.tres" id="2_wfs30"]
 
 [sub_resource type="GDScript" id="GDScript_bt2r4"]
 script/source = "extends Button
@@ -14,151 +14,89 @@ func _ready() -> void:
 	)
 "
 
-[sub_resource type="Animation" id="Animation_bt2r4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [58]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(377, 0)]
-}
+[sub_resource type="GDScript" id="GDScript_wfs30"]
+resource_name = "Anwser"
+script/source = "extends Label
 
-[sub_resource type="Animation" id="Animation_wfs30"]
-resource_name = "fast_response"
-length = 3.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:theme_override_font_sizes/font_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.96666664, 2.1333334, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [64, 72, 56, 64]
-}
 
-[sub_resource type="Animation" id="Animation_llxd6"]
-resource_name = "fast_response"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.56666666, 1, 1.5, 2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.06981317, 0.0, -0.06981317, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.99, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(377, 0), Vector2(377, 16), Vector2(377, 0)]
-}
+func _ready() -> void:
+	DoodleAi.response_received.connect(func(reply: String, is_deep: bool):
+		self.text = reply
+	)
+"
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_llxd6"]
-_data = {
-&"RESET": SubResource("Animation_bt2r4"),
-&"deep_response": SubResource("Animation_wfs30"),
-&"fast_response": SubResource("Animation_llxd6")
-}
-
-[node name="Main" type="Node2D" unique_id=1748254535]
-script = ExtResource("1_0u8ko")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=539164007]
-
-[node name="Toolbar" type="CanvasLayer" parent="." unique_id=1754097666]
-script = ExtResource("2_bt2r4")
-
-[node name="Control" type="Control" parent="Toolbar" unique_id=1561272673]
+[node name="Main" type="Control" unique_id=1645257538]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Panel" type="Panel" parent="Toolbar/Control" unique_id=1931734724]
-layout_mode = 0
-offset_right = 76.0
-offset_bottom = 196.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Control/Panel" unique_id=1976082167]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -88.0
-offset_right = 32.0
-offset_bottom = 88.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_wfs30")
+script = ExtResource("1_0u8ko")
 
-[node name="Button" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1624150736]
-custom_minimum_size = Vector2(64, 32)
-layout_mode = 2
-script = SubResource("GDScript_bt2r4")
-
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button" unique_id=1614803386]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=886050621]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+color = Color(0.84, 0.78302, 0.74759996, 1)
 
-[node name="Button2" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=330179327]
-custom_minimum_size = Vector2(64, 32)
+[node name="Canvas" type="Panel" parent="." unique_id=389776616]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -483.0
+offset_top = -180.0
+offset_right = 483.0
+offset_bottom = 323.0003
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_wfs30")
+
+[node name="TextureRect" type="TextureRect" parent="Canvas" unique_id=460657360]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorPicker" type="Panel" parent="Canvas" unique_id=1931734724]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -95.0
+offset_right = -4.0
+offset_bottom = 95.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/ColorPicker" unique_id=1976082167]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -90.0
+offset_right = 16.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Button2" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=330179327]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button2" unique_id=1537203137]
+[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button2" unique_id=1537203137]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,12 +106,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Button3" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1603683795]
-custom_minimum_size = Vector2(64, 32)
+[node name="Button3" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1603683795]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button3" unique_id=379477522]
+[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button3" unique_id=379477522]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,12 +122,29 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.784382, 0.21340358, 0.26264974, 1)
 
-[node name="Button4" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=1854809317]
-custom_minimum_size = Vector2(64, 32)
+[node name="Button" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1624150736]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button4" unique_id=1320914502]
+[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button" unique_id=1614803386]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.93, 0.93, 0.3627, 1)
+
+[node name="Button4" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1854809317]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+script = SubResource("GDScript_bt2r4")
+
+[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button4" unique_id=1320914502]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -198,12 +154,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.115324534, 0.21886483, 0.99981886, 1)
 
-[node name="Button5" type="Button" parent="Toolbar/Control/Panel/VBoxContainer" unique_id=994783301]
-custom_minimum_size = Vector2(64, 32)
+[node name="Button5" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=994783301]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Control/Panel/VBoxContainer/Button5" unique_id=1677625170]
+[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button5" unique_id=1677625170]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -213,32 +170,58 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1.92523e-07, 0.86389977, 0.36664948, 1)
 
-[node name="AiGuess" type="Label" parent="Toolbar" unique_id=1215243193]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -263.0
-offset_right = 263.0
-offset_bottom = 88.0
+[node name="Anwser" type="Control" parent="Canvas" unique_id=1740583681]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 grow_horizontal = 2
-pivot_offset = Vector2(1, 1)
-pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="Target" type="Label" parent="Canvas/Anwser" unique_id=1990255226]
+layout_mode = 0
+offset_top = -75.0
+offset_right = 380.0
 theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
-theme_override_font_sizes/font_size = 58
-text = "Draw something!"
+theme_override_font_sizes/font_size = 48
+text = "Narysuj: <ITEM>"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Toolbar/AiGuess" unique_id=820520310]
-libraries/ = SubResource("AnimationLibrary_llxd6")
-
-[node name="Background" type="CanvasLayer" parent="." unique_id=1743077951]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="Background" unique_id=65508656]
-anchors_preset = 15
+[node name="AiGuess" type="Label" parent="Canvas/Anwser" unique_id=1215243193]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -372.0
+offset_top = -66.0
+grow_horizontal = 0
+pivot_offset = Vector2(1, 1)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
+theme_override_font_sizes/font_size = 42
+text = "Pomyślmy..."
+horizontal_alignment = 1
+vertical_alignment = 1
+script = SubResource("GDScript_wfs30")
+
+[node name="CertainityText" type="HBoxContainer" parent="." unique_id=361462829]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.92, 0.92, 0.92, 1)
+offset_left = 620.0
+offset_top = 680.0
+offset_right = 797.0
+offset_bottom = 720.0
+grow_vertical = 0
+
+[node name="CertainityPrefix" type="Label" parent="CertainityText" unique_id=556392185]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.32156864, 0.32156864, 0.32156864, 1)
+theme_override_font_sizes/font_size = 24
+text = "Pewność:"
+
+[node name="Certainity" type="Label" parent="CertainityText" unique_id=316171318]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.57071996, 0.82, 0.3526, 1)
+theme_override_font_sizes/font_size = 24
+text = "Niska"

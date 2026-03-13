@@ -1,9 +1,8 @@
-extends Node2D
+extends Control
 
 @export var line_width: float = 10.0
 @export var line_color: Color = Color.RED
 @export var eraser_width: float = 20.0
-@export var canvas_size: Vector2i = Vector2i(1280, 720)
 
 var is_drawing: bool = false
 var is_erasing: bool = false
@@ -17,14 +16,18 @@ var stroke_snapshot: Image
 var last_stroke_time: float = 0.0
 const STROKE_COOLDOWN: float = 0.2
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var canvas_rect: TextureRect = $Canvas/TextureRect
+@onready var canvas_size: Vector2i = $Canvas.size
 
 func _ready() -> void:
 	canvas_image = Image.create(canvas_size.x, canvas_size.y, false, Image.FORMAT_RGBA8)
 	canvas_image.fill(Color.TRANSPARENT)
 	canvas_texture = ImageTexture.create_from_image(canvas_image)
-	sprite.texture = canvas_texture
-	sprite.centered = false
+	canvas_rect.texture = canvas_texture
+	canvas_rect.stretch_mode = TextureRect.STRETCH_KEEP
+
+func _process(_delta: float) -> void:
+	line_color = Global.brush_color
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -45,8 +48,6 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and is_drawing:
 		var pos := _get_canvas_pos(event.position)
 		_draw_segment(pos)
-		
-		
 
 	if Input.is_action_just_released("undo"):
 		undo()
@@ -59,12 +60,11 @@ func _begin_stroke() -> void:
 	if now - last_stroke_time < STROKE_COOLDOWN:
 		return
 	last_stroke_time = now
-	
+
 	is_drawing = true
 	is_erasing = Global.brush_eraser_mode
 	has_last_point = false
 
-	# Save snapshot for undo
 	stroke_snapshot = Image.new()
 	stroke_snapshot.copy_from(canvas_image)
 
@@ -73,7 +73,6 @@ func _end_stroke() -> void:
 		is_drawing = false
 		has_last_point = false
 
-		# Push snapshot to undo stack
 		if stroke_snapshot:
 			undo_stack.append(stroke_snapshot)
 			stroke_snapshot = null
@@ -119,7 +118,6 @@ func _draw_circle_on_image(center: Vector2, radius: float, color: Color) -> void
 			if is_erasing:
 				canvas_image.set_pixel(px, py, color)
 			else:
-				# Blend over existing
 				var existing := canvas_image.get_pixel(px, py)
 				var blended := _blend_over(existing, color)
 				canvas_image.set_pixel(px, py, blended)
@@ -134,15 +132,13 @@ func _blend_over(dst: Color, src: Color) -> Color:
 	return Color(out_r, out_g, out_b, out_a)
 
 func _get_canvas_pos(screen_pos: Vector2) -> Vector2:
-	return screen_pos - sprite.global_position
+	return screen_pos - canvas_rect.global_position
 
 func undo() -> void:
 	if undo_stack.size() > 0 and not is_drawing:
 		canvas_image.copy_from(undo_stack.pop_back())
 		canvas_texture.update(canvas_image)
+	send_to_ai()
 
 func send_to_ai() -> void:
 	DoodleAi.recognize(canvas_image)
-
-func _process(_delta: float) -> void:
-	line_color = Global.brush_color
