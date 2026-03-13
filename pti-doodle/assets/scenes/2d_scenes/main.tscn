@@ -3,6 +3,32 @@
 [ext_resource type="Script" uid="uid://c7omn8ud22fqo" path="res://assets/scenes/2d_scenes/main.gd" id="1_0u8ko"]
 [ext_resource type="Theme" uid="uid://cymxflgwd3kp5" path="res://assets/resources/main_theme.tres" id="2_wfs30"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfs30"]
+bg_color = Color(0.90533507, 0.9053352, 0.90533507, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14622876, 0.14622879, 0.14622867, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bt2r4"]
+bg_color = Color(0.90533507, 0.9053352, 0.90533507, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.14622876, 0.14622879, 0.14622867, 1)
+corner_radius_top_left = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
 [sub_resource type="GDScript" id="GDScript_bt2r4"]
 script/source = "extends Button
 
@@ -12,6 +38,12 @@ func _ready() -> void:
 	self.button_up.connect(func():
 		Global.brush_color = color_rect.color
 	)
+
+func _process(_delta: float) -> void:
+	if Global.brush_color == color_rect.color:
+		self.custom_minimum_size = Vector2(56, 56)
+	else:
+		self.custom_minimum_size = Vector2(72, 72)
 "
 
 [sub_resource type="GDScript" id="GDScript_wfs30"]
@@ -51,31 +83,36 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -483.0
-offset_top = -180.0
-offset_right = 483.0
-offset_bottom = 323.0003
+offset_left = -1489.5
+offset_top = -630.0
+offset_right = 1489.5
+offset_bottom = 1014.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_wfs30")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wfs30")
 
 [node name="TextureRect" type="TextureRect" parent="Canvas" unique_id=460657360]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ColorPicker" type="Panel" parent="Canvas" unique_id=1931734724]
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas" unique_id=534233337]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -95.0
-offset_right = -4.0
-offset_bottom = 95.0
+offset_left = -96.0
+offset_top = -210.5
+offset_bottom = 210.5
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/ColorPicker" unique_id=1976082167]
+[node name="ColorPicker" type="Panel" parent="Canvas/VBoxContainer" unique_id=1931734724]
+custom_minimum_size = Vector2(96, 421)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bt2r4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/VBoxContainer/ColorPicker" unique_id=1976082167]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -90,13 +127,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
 
-[node name="Button2" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=330179327]
-custom_minimum_size = Vector2(32, 32)
+[node name="Button2" type="Button" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer" unique_id=330179327]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button2" unique_id=1537203137]
+[node name="ColorRect" type="ColorRect" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer/Button2" unique_id=1537203137]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -106,13 +143,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Button3" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1603683795]
-custom_minimum_size = Vector2(32, 32)
+[node name="Button3" type="Button" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer" unique_id=1603683795]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button3" unique_id=379477522]
+[node name="ColorRect" type="ColorRect" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer/Button3" unique_id=379477522]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -122,13 +159,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.784382, 0.21340358, 0.26264974, 1)
 
-[node name="Button" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1624150736]
-custom_minimum_size = Vector2(32, 32)
+[node name="Button" type="Button" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer" unique_id=1624150736]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button" unique_id=1614803386]
+[node name="ColorRect" type="ColorRect" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer/Button" unique_id=1614803386]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -138,13 +175,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.93, 0.93, 0.3627, 1)
 
-[node name="Button4" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=1854809317]
-custom_minimum_size = Vector2(32, 32)
+[node name="Button4" type="Button" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer" unique_id=1854809317]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button4" unique_id=1320914502]
+[node name="ColorRect" type="ColorRect" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer/Button4" unique_id=1320914502]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -154,13 +191,13 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.115324534, 0.21886483, 0.99981886, 1)
 
-[node name="Button5" type="Button" parent="Canvas/ColorPicker/VBoxContainer" unique_id=994783301]
-custom_minimum_size = Vector2(32, 32)
+[node name="Button5" type="Button" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer" unique_id=994783301]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_horizontal = 4
 script = SubResource("GDScript_bt2r4")
 
-[node name="ColorRect" type="ColorRect" parent="Canvas/ColorPicker/VBoxContainer/Button5" unique_id=1677625170]
+[node name="ColorRect" type="ColorRect" parent="Canvas/VBoxContainer/ColorPicker/VBoxContainer/Button5" unique_id=1677625170]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,14 +211,16 @@ color = Color(1.92523e-07, 0.86389977, 0.36664948, 1)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 
 [node name="Target" type="Label" parent="Canvas/Anwser" unique_id=1990255226]
 layout_mode = 0
-offset_top = -75.0
-offset_right = 380.0
+offset_top = -66.0
+offset_right = 334.0
 theme_override_colors/font_color = Color(0.32024416, 0.32024416, 0.32024413, 1)
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 42
 text = "Narysuj: <ITEM>"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -191,7 +230,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -372.0
+offset_left = -251.0
 offset_top = -66.0
 grow_horizontal = 0
 pivot_offset = Vector2(1, 1)

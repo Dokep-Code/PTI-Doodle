@@ -18,14 +18,22 @@ var fast_timer: SceneTreeTimer
 var http_request: HTTPRequest
 var is_awaiting_fast_response: bool = false
 var is_awaiting_deep_response: bool = false
-var certainty: Color 
+var certainty: Color
+var _on_cooldown: bool = false
+
 
 func _ready() -> void:
 	http_request = HTTPRequest.new()
 	add_child(http_request)
 	http_request.request_completed.connect(_on_request_completed)
 
+
 func recognize(image: Image) -> void:
+	if _on_cooldown:
+		return
+	_on_cooldown = true
+	get_tree().create_timer(0.5).timeout.connect(func(): _on_cooldown = false)
+
 	http_request.cancel_request()
 
 	fast_timer = get_tree().create_timer(0.3)
@@ -33,9 +41,9 @@ func recognize(image: Image) -> void:
 
 	if deep_timer and deep_timer.timeout.is_connected(_send):
 		deep_timer.timeout.disconnect(_send)
-
 	deep_timer = get_tree().create_timer(3.0)
 	deep_timer.timeout.connect(_send.bind(image, true))
+
 
 func _send(image: Image, with_reasoning: bool) -> void:
 	var type_label := "deep" if with_reasoning else "fast"
@@ -90,13 +98,13 @@ func _send(image: Image, with_reasoning: bool) -> void:
 
 	current_request_type = type_label
 	http_request.cancel_request()
-
 	http_request.request(
 		"https://openrouter.ai/api/v1/chat/completions",
 		headers,
 		HTTPClient.METHOD_POST,
 		JSON.stringify(body)
 	)
+
 
 func _on_request_completed(
 	_result: int, _response_code: int,
@@ -112,14 +120,15 @@ func _on_request_completed(
 		certainty_changed.emit(Color("d94c4c"))
 
 	var body_str := body.get_string_from_utf8()
-
 	var json := JSON.new()
 	var err := json.parse(body_str)
+
 	if err != OK:
 		push_error("DoodleAI: JSON parse failed")
 		return
 
 	var data: Dictionary = json.data
+
 	if data.has("error"):
 		push_error("DoodleAI: API error — %s" % str(data["error"]))
 		return
