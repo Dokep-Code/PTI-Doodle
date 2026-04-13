@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ce87ncv7jfoj1"]
+
+[ext_resource type="Theme" uid="uid://cymxflgwd3kp5" path="res://assets/resources/main_theme.tres" id="1_lucmy"]
+[ext_resource type="Script" uid="uid://dfvm40ywhl73d" path="res://assets/prefabs/CustomButton/custom_button.gd" id="1_r1emj"]
+
+[node name="CustomButton" type="Button" unique_id=882843896]
+custom_minimum_size = Vector2(96, 96)
+theme = ExtResource("1_lucmy")
+toggle_mode = true
+text = "BUTTON"
+script = ExtResource("1_r1emj")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=785919776]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

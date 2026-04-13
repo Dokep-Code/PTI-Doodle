@@ -1,0 +1,51 @@
+[gd_resource type="Theme" format=3 uid="uid://cymxflgwd3kp5"]
+
+[ext_resource type="FontFile" uid="uid://vccfy3r1p725" path="res://assets/resources/Outfit-VariableFont_wght.ttf" id="1_xwa3o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xwa3o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl2bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xwa3o"]
+bg_color = Color(0.81, 0.81, 0.81, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgk5m"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6pdjc"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.14622876, 0.14622879, 0.14622867, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[resource]
+Button/colors/font_color = Color(0.88, 0.88, 0.88, 0)
+Button/styles/focus = SubResource("StyleBoxEmpty_xwa3o")
+Button/styles/hover = SubResource("StyleBoxEmpty_sl2bg")
+Button/styles/normal = SubResource("StyleBoxFlat_xwa3o")
+Button/styles/pressed = SubResource("StyleBoxFlat_pgk5m")
+Label/constants/outline_size = 4
+Label/fonts/font = ExtResource("1_xwa3o")
+Label/styles/normal = SubResource("StyleBoxFlat_6pdjc")
+Panel/styles/panel = SubResource("StyleBoxFlat_6pdjc")

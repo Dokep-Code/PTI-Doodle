@@ -1,0 +1,10 @@
+[gd_scene format=3]
+
+[ext_resource type="Theme" uid="uid://cymxflgwd3kp5" path="res://assets/resources/main_theme.tres" id="1_theme"]
+[ext_resource type="Script" path="res://assets/prefabs/ToolButton/tool_button.gd" id="2_script"]
+
+[node name="ToolButton" type="Button"]
+custom_minimum_size = Vector2(96, 96)
+theme = ExtResource("1_theme")
+toggle_mode = true
+script = ExtResource("2_script")
